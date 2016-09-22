@@ -1,0 +1,9 @@
+{{ object.name }}
+<br>
+{% for section in object.sections.all %}
+    {{ section.name }}:
+    {% for pricepoint in section.pricepoints.all %}
+    <p>({{ pricepoint.datetime|date:"D d M Y" }}, {{ pricepoint.total_amount }})</p>
+    {% endfor %}
+{% endfor %}
+</table>
