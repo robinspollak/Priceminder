@@ -3,6 +3,7 @@ from django.views.generic import DetailView, ListView
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import LineChart
 
+from pricetracker.settings import trim_datetime
 from .models import Event
 
 class HomeView(ListView):
@@ -40,7 +41,7 @@ class EventView(DetailView):
     def prepare_chart_data(self, section):
         prepared_data = [['Date', 'Price']]
         for pricepoint in section.pricepoints.all().order_by('datetime'):
-            data_point = [pricepoint.datetime.strftime("%m/%d/%Y, %I:%M%p"),\
+            data_point = [trim_datetime(pricepoint.datetime),\
                           pricepoint.total_amount]
             prepared_data.append(data_point)
         return prepared_data

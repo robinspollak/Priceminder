@@ -4,5 +4,6 @@ db.sqlite3
 migrations/
 settings.py
 venv/
+.env
 secrets.py
 staticfiles/

@@ -44,8 +44,9 @@ body{
 #page_name{
     margin-top: 5%;
 }
-#page_name{
-    font-size: 25px;
+#page_name h2{
+    font-size: 35px;
+    font-weight: 500;
 }
 #header--homepage--logo{
     width: 30%;
@@ -64,7 +65,7 @@ body{
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #EEF0F5;
+  background-color: #fff;
   text-align: center;
   height: 40px;
   border-top: 2px solid #4A96AD;

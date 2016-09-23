@@ -4,6 +4,7 @@
 
 {% block extra_head %}
     <!--Load the AJAX API-->
+    <title>{{ object.name }}</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
@@ -27,15 +28,15 @@
               legend: { position: 'none' },
               backgroundColor: '#F5F3EE',
               colors: ['#4A96AD'],
-              // animation: {
-              //   duration: 1000,
-              //   startup: true,
-              //   easing: 'out'
-              // },
+              pointSize: 10,
+              
               hAxis: {
                 textStyle: {
                   color: '#7D1935',
                   fontName: 'Menlo'
+                },
+                gridlines:{
+                  color: '#37241A'
                 }
               },
               vAxis: {
