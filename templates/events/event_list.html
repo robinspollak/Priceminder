@@ -1,0 +1,33 @@
+{% extends '../base.html' %}
+{% load staticfiles %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/events/homepage.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div id="content_box">
+        {% for object in object_list %}
+            <div id="column" >
+                <a id="event_button" href='{% url 'event' object.id %}'>
+                    <span id="button_text">
+                        {{ object.name }}
+                    </span>
+                </a>
+            </div>
+        {% endfor %}
+        {% for event_name in not_on_sale %}
+            <div id="column" >
+                <a class="disabled" id="event_button" href=''>
+                    <span id="button_text">
+                        {{ event_name }}
+                    </span>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="clear"></div>
+    </div>
+{% endblock %}
+<footer>
+    
+</footer>

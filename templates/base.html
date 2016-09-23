@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+    {% block extra_head %}
+    {% endblock %}
+</head>
+<body>
+        <div class="header" id="header--homepage">
+            <div id="header--homepage--logo">
+                <img id="logo" src="{% static 'img/working_logo.svg' %}" alt="logo">
+            </div>
+            <div id="catch_text">
+                <h3>Buy your tickets at the cheapest time, every time.</h3>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+        <div id="footer">
+            <p>Made with &#9829; by <a href='robin@pollak.io'>Robin Pollak</a></p>
+        </div>
+</body>

@@ -1,0 +1,51 @@
+/* 
+#7D1935 - Ruby, for secondary background, primary header
+#4A96AD - Blue, headings and call to actions
+#F5F3EE - Off White, primary background
+#FFFFFF - White, for text atop Ruby and Blue
+#37241A - Brown, for text on off white
+*/
+#content_box{
+    margin-left: 12%;
+    margin-right: 12%;
+    width: 85%;
+    height: auto;
+}
+#column{
+    height: auto;
+}
+#event_button{
+    float: left;
+    margin: 1% 1%;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    width: 220px;
+    height: 220px;
+    background-color: #4A96AD;
+    color: #FFF;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    display: -moz-box;
+    -moz-box-align: center;
+    display: -moz-box;
+    -moz-box-align: center;
+}
+#button_text{
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.clear{
+    clear: both;
+}
+.disabled{
+    width: 218px;
+    height: 218px;  
+    pointer-events: none;
+    cursor: default;
+    background-color: #FFF !important;
+    color: #4A96AD !important;
+    border: dotted 2px #4A96AD;
+}

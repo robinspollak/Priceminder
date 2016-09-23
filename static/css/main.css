@@ -1,0 +1,80 @@
+/* 
+#7D1935 - Ruby, for secondary background
+#4A96AD - Blue, headings and call to actions
+#F5F3EE - Off White, primary background
+#FFFFFF - White, for text atop Ruby and Blue
+#37241A - Brown, for text on off white
+*/
+body{
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    background-color: #F5F3EE;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+.header{
+    color: #7D1935;
+}
+#header--homepage{
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+#header--homepage--text h3{
+    font-size: 25px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+#catch_text{
+    width: 70%;
+    margin: 0;
+    float: right;
+    text-align: right;
+}
+#catch_text h3{
+    font-size: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 32px 25px;
+    font-weight: 500;
+}
+#header--homepage--logo{
+    width: 30%;
+    margin-right: 0;
+    float: left;
+}
+#logo{
+    width: 250px;
+    height: 190px;  
+    margin: 25px 25px;
+    padding: 0;
+}
+#footer{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+  height: 50px;
+}
+#footer a{
+    text-decoration: underline;
+    color: inherit;
+}
+/*#footer {
+    position:fixed;
+    height:50px;
+    background-color: #7D1935;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
+    text-align: center;
+} 
+*/
