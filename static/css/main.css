@@ -59,7 +59,7 @@ body{
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
+  background-color: #7D1935;
   text-align: center;
   height: 50px;
 }
@@ -67,14 +67,3 @@ body{
     text-decoration: underline;
     color: inherit;
 }
-/*#footer {
-    position:fixed;
-    height:50px;
-    background-color: #7D1935;
-    bottom:0px;
-    left:0px;
-    right:0px;
-    margin-bottom:0px;
-    text-align: center;
-} 
-*/
