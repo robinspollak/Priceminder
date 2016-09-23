@@ -13,7 +13,6 @@ body{
     min-height: 100%;
     position: relative;
     padding-bottom: 6rem;
-    min-height: 100%;
 }
 .header{
     color: #7D1935;
@@ -42,6 +41,12 @@ body{
     margin: 32px 25px;
     font-weight: 500;
 }
+#page_name{
+    margin-top: 5%;
+}
+#page_name{
+    font-size: 25px;
+}
 #header--homepage--logo{
     width: 30%;
     margin-right: 0;
@@ -59,11 +64,15 @@ body{
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #fff;
+  background-color: #EEF0F5;
   text-align: center;
-  height: 50px;
+  height: 40px;
   border-top: 2px solid #4A96AD;
   color: #7D1935;
+}
+#footer p{
+    position: relative;
+    margin-bottom: 20px;
 }
 #footer a{
     text-decoration: underline;

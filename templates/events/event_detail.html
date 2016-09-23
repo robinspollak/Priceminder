@@ -66,9 +66,12 @@
 
 {% endblock %}
 
+{% block pagename %}
+    {{ object.name }}
+{% endblock %}
+
 
 {% block content %}
-    {{ object.name }}
     {% for section in section_names %}
         <div id="chart_{{ section }}"></div>
     {% endfor %}
