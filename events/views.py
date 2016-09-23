@@ -1,6 +1,7 @@
 from django.views.generic import DetailView, ListView
 
-from pricetracker.settings import trim_datetime
+from graphos.sources.simple import SimpleDataSource
+from graphos.renderers.gchart import LineChart
 
 from .models import Event
 
@@ -22,26 +23,24 @@ class EventView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(EventView, self).get_context_data(**kwargs)
-        self.prepare_chart_data()
+        context['section_names'] = map(lambda section: section.name.replace(" ", "_").replace("-",""),
+                                       list(self.object.sections.all()))
+        context['charts'] = self.create_charts()
         return context
 
-    def prepare_chart_data(self):
-        sections = self.object.sections.all()
-        prepared_data = []
-        data_labels = ['Date']
-        dates = []
-        for section in sections:
-            data_labels.append(section.name)
-            for pricepoint in section.pricepoints.all().order_by('datetime'):
-                dt = pricepoint.datetime.strftime("%m/%d/%Y, %I:%M%p")
-                if dt not in dates:
-                    dates.append(dt)
-        prepared_data.append(data_labels)
-        dates = sorted([[date] for date in dates])
-        for section in sections:
-            pricepoints = list(section.pricepoints.all().order_by('datetime'))
-            for i in range(len(pricepoints)):
-                dates[i].append(pricepoints[i].total_amount)
-        for date in dates:
-            prepared_data.append(date)
+    def create_charts(self):
+        charts = {}
+        for section in self.object.sections.all():
+            data = self.prepare_chart_data(section)
+            # data_source = SimpleDataSource(data=data)
+            # chart = LineChart(data_source)
+            charts[section.name.replace(" ", "_").replace("-","")] = data
+        return charts
+
+    def prepare_chart_data(self, section):
+        prepared_data = [['Date', 'Price']]
+        for pricepoint in section.pricepoints.all().order_by('datetime'):
+            data_point = [pricepoint.datetime.strftime("%m/%d/%Y, %I:%M%p"),\
+                          pricepoint.total_amount]
+            prepared_data.append(data_point)
         return prepared_data

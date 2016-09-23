@@ -59,9 +59,11 @@ body{
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #7D1935;
+  background-color: #fff;
   text-align: center;
   height: 50px;
+  border-top: 2px solid #4A96AD;
+  color: #7D1935;
 }
 #footer a{
     text-decoration: underline;
