@@ -2,8 +2,8 @@ __pycache__/
 *.py[cod]
 db.sqlite3
 migrations/
-settings.py
 venv/
 .env
 secrets.py
+settings.py
 staticfiles/

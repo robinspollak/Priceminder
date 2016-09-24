@@ -5,7 +5,7 @@ import requests
 from django.db import models
 
 from pricepoint.models import Pricepoint
-from pricetracker.settings import get_secret
+from pricetracker.core import get_secret
 
 class Event(models.Model):
     name = models.CharField(max_length=255)

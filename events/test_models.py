@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from pricetracker.settings import get_secret
+from pricetracker.core import get_secret
 from .models import *
 
 class EventTestCase(TestCase):

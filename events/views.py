@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView
 
-from pricetracker.settings import trim_datetime
+from pricetracker.core import trim_datetime
 from .models import Event, Section
 
 class HomeView(ListView):
