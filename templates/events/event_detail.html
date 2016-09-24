@@ -5,6 +5,7 @@
 {% block extra_head %}
     <!--Load the AJAX API-->
     <title>{{ object.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/events/event_detail.css' %}" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
@@ -14,22 +15,28 @@
       // google.charts.setOnLoadCallback(drawChart);
 
       {% for section in section_names %}
-          console.log("{{ section }}");
-          function drawChart_{{ section }}() {
+          function drawChart_{{ section.0 }}() {
 
             // Create the data table.
             {% autoescape off %}
-            var data_{{ section }} = google.visualization.arrayToDataTable({{ charts|dict_get:section|replace }});
-            {% endautoescape %}
+                var data_{{ section.0 }} = new google.visualization.DataTable();
+                data_{{ section.0 }}.addColumn('date', 'Date');
+                data_{{ section.0 }}.addColumn('number', 'Price');
+                rows = {{ charts|dict_get:section.0 }}
+                for (var i = 0; i < rows.length; i++) {
+                    rows[i][0] = new Date(rows[i][0][0], rows[i][0][1], rows[i][0][2], rows[i][0][3], rows[i][0][4])
+                };
+                data_{{ section.0 }}.addRows(rows);
 
-            var options_{{ section }} = {
-              title: "{{ section }}".replace("__"," - ").replace("_", " ").replace("_", " "),
+
+            var options_{{ section.0 }} = {
+              title: "{{ section.0 }}".replace("__"," - ").replace("_", " ").replace("_", " "),
               curveType: 'function',
               legend: { position: 'none' },
               backgroundColor: '#F5F3EE',
               colors: ['#4A96AD'],
               pointSize: 10,
-              
+
               hAxis: {
                 textStyle: {
                   color: '#7D1935',
@@ -53,13 +60,14 @@
             };
 
             // Instantiate and draw our chart, passing in some options.
-            var chart_{{ section }} = new google.visualization.LineChart(document.getElementById('chart_{{ section }}'));
-            chart_{{ section }}.draw(data_{{ section }}, options_{{ section }});
+            var chart_{{ section.0 }} = new google.visualization.LineChart(document.getElementById('chart_{{ section.0 }}'));
+            chart_{{ section.0 }}.draw(data_{{ section.0 }}, options_{{ section.0 }});
           }
+          {% endautoescape %}
       {% endfor %}
       function drawChart(){
         {% for section in section_names %}
-            drawChart_{{ section }}();
+            drawChart_{{ section.0 }}();
         {% endfor %}
       };
 
@@ -73,14 +81,7 @@
 
 
 {% block content %}
-    {% for section in section_names %}
-        <div id="chart_{{ section }}"></div>
+    {% for section_name in section_names %}
+        <a href="{% url 'section' object.id section_name.1 %}" class="chart" id="chart_{{ section_name.0 }}"></a>
     {% endfor %}
-<!--     <br>
-    {% for section in object.sections.all %}
-        {{ section.name }}:
-        {% for pricepoint in section.pricepoints.all %}
-        <p>({{ pricepoint.datetime|date:"D d M Y" }}, {{ pricepoint.total_amount }})</p>
-        {% endfor %}
-    {% endfor %} -->
 {% endblock %}

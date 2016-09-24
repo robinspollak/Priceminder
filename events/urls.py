@@ -7,4 +7,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name="home"),
     url(r'^(?P<pk>\d+)/$', views.EventView.as_view(), name="event"),
+    url(r'^(?P<event_id>\d+)/(?P<pk>\d+)/$', views.SectionView.as_view(), name="section"),
 ]
