@@ -1,6 +1,7 @@
 from django.views.generic import DetailView, ListView
 
 from pricetracker.core import trim_datetime
+from pricepoint.models import Pricepoint
 from .models import Event, Section
 
 class HomeView(ListView):
@@ -13,8 +14,11 @@ class HomeView(ListView):
         return context
 
     def not_on_sale(self):
-        upcoming = ['Lollapalooza', 'Bonnaroo', "Governor's Ball", "EDC: Las Vegas", "South by Southwest"]
+        upcoming = sorted(['Lollapalooza', 'Bonnaroo', "Governor's Ball", "EDC: Las Vegas", "South by Southwest"])
         return upcoming
+
+    def get_queryset(self):
+        return Event.objects.all().order_by('name')
 
 class EventView(DetailView):
     model = Event
@@ -47,6 +51,7 @@ class SectionView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(SectionView, self).get_context_data(**kwargs)
         context['chart'] = self.prepare_chart_data(self.object)
+        context['cheapest'] = self.object.pricepoints.all().order_by('total_amount', '-id')
         return context
 
     def prepare_chart_data(self, section):

@@ -4,6 +4,7 @@
 
 {% block extra_head %}
     <title>{{ object.name }} at {{ object.event.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/events/section_detail.css' %}" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
@@ -32,7 +33,7 @@
               backgroundColor: '#F5F3EE',
               colors: ['#4A96AD'],
               pointSize: 10,
-
+              height: 300,
               hAxis: {
                 textStyle: {
                   color: '#7D1935',
@@ -69,6 +70,13 @@
 {% block content %}
     <div id="chart"></div>
     <div id="more_info">
-
+      <p>{{ object.name }} tickets at {{ object.event.name }} are listed for {{ object.pricepoints.last.raw_amount }}, but will cost {{ object.pricepoints.last.total_amount }} with all Stubhub fees included.
+        {% if cheapest.first == object.pricepoints.last %}
+          This is the cheapest these tickets have ever been!
+        {% else %}
+          This is ${{ object.pricepoints.last.total_amount|subtract:cheapest.first.total_amount }} more expensive than it was on {{ cheapest.first.datetime|date:"m-d-y"}}.
+        {% endif %}
+        Click <a href="{{ object.event.stubhub_id|stubhub_uri:cheapest.first.cheapest_id }}">here</a> to buy these tickets now!
+      </p>
     </div>
 {% endblock %}

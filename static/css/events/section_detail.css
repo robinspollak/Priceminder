@@ -1,0 +1,18 @@
+/* 
+#7D1935 - Ruby, for secondary background
+#4A96AD - Blue, headings and call to actions
+#F5F3EE - Off White, primary background
+#FFFFFF - White, for text atop Ruby and Blue
+#37241A - Brown, for text on off white
+*/
+#more_info{
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#more_info p{
+    color: #7D1935;
+}
+#more_info a{
+    color: #4A96AD;
+}

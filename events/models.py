@@ -41,6 +41,7 @@ class Section(models.Model):
             cheapest_ticket = response['listing'][0]
             pricepoint = Pricepoint.objects.create(raw_amount=cheapest_ticket['listingPrice']['amount'],
                                                    total_amount=cheapest_ticket['currentPrice']['amount'],
+                                                   cheapest_id=cheapest_ticket['listingId'],
                                                    section=self)
         except:
             pricepoint = Pricepoint.objects.create(raw_amount=0.0,
