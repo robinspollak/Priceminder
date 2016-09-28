@@ -29,18 +29,24 @@ class Section(models.Model):
 
 
     def create_pricepoint(self, response):
-        try:
-            cheapest_ticket = response['listing'][0]
-            pricepoint = Pricepoint.objects.create(raw_amount=cheapest_ticket['listingPrice']['amount'],
-                                                   total_amount=cheapest_ticket['currentPrice']['amount'],
-                                                   listing_id=unicode(cheapest_ticket['listingId']),
-                                                   section=self)
-        except:
-            pricepoint = Pricepoint.objects.create(raw_amount=0.0,
-                                                   total_amount=0.0,
-                                                   listing_id='0',
-                                                   section=self)
-        return pricepoint
+        listings = response['listing']
+        for listing in listings:
+            listing_url = get_secret('STUBHUB_LISTING_URL') + unicode(listing['listingId'])
+            response = requests.get(listing_url, headers=get_secret('STUBHUB_POST_HEADER'), params={}).json()
+            if 'errors' not in response['ListingResponse']:
+                try:
+                    pricepoint = Pricepoint.objects.create(raw_amount=listing['listingPrice']['amount'],
+                                                           total_amount=listing['currentPrice']['amount'],
+                                                           listing_id=unicode(listing['listingId']),
+                                                           section=self)
+                except:
+                    pricepoint = Pricepoint.objects.create(raw_amount=0.0,
+                                                           total_amount=0.0,
+                                                           listing_id='0',
+                                                           section=self)
+                return pricepoint
+        return None
+
 
     def retrieve_pricepoint(self):
         inventory_url = get_secret('STUBHUB_API_URL')
@@ -49,12 +55,14 @@ class Section(models.Model):
             query_data = {
                         'eventid': self.event.stubhub_id,
                         'sectionidlist': [self.stubhub_id],
-                        'rows': 1
+                        'quantity': 1,
+                        'rows': 10
                         }
         else:
             query_data = {
                         'eventid': self.event.stubhub_id,
-                        'rows': 1
+                        'quantity': 1,
+                        'rows': 10
                         }
         response = requests.get(inventory_url, headers=headers, params=query_data).json()
         return response
