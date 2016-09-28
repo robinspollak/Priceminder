@@ -17,7 +17,6 @@
 #event_button{
     float: left;
     margin: 1% 1%;
-    display: inline-block;
     display: flex;
     align-items: center;
     width: 220px;

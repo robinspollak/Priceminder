@@ -23,7 +23,26 @@ class Section(models.Model):
         return self.name + " at " + self.event.name
 
     def set_pricepoint(self):
-        inventory_url = 'https://api.stubhub.com/search/inventory/v1'
+        response = self.retrieve_pricepoint()
+        pricepoint = self.create_pricepoint(response)
+        return pricepoint
+
+
+    def create_pricepoint(self, response):
+        try:
+            cheapest_ticket = response['listing'][0]
+            pricepoint = Pricepoint.objects.create(raw_amount=cheapest_ticket['listingPrice']['amount'],
+                                                   total_amount=cheapest_ticket['currentPrice']['amount'],
+                                                   listing_id=cheapest_ticket['listingId'],
+                                                   section=self)
+        except:
+            pricepoint = Pricepoint.objects.create(raw_amount=0.0,
+                                                   total_amount=0.0,
+                                                   section=self)
+        return pricepoint
+
+    def retrieve_pricepoint(self):
+        inventory_url = get_secret('STUBHUB_API_URL')
         headers = get_secret('STUBHUB_POST_HEADER')
         if self.stubhub_id:
             query_data = {
@@ -37,15 +56,5 @@ class Section(models.Model):
                         'rows': 1
                         }
         response = requests.get(inventory_url, headers=headers, params=query_data).json()
-        try:
-            cheapest_ticket = response['listing'][0]
-            pricepoint = Pricepoint.objects.create(raw_amount=cheapest_ticket['listingPrice']['amount'],
-                                                   total_amount=cheapest_ticket['currentPrice']['amount'],
-                                                   cheapest_id=cheapest_ticket['listingId'],
-                                                   section=self)
-        except:
-            pricepoint = Pricepoint.objects.create(raw_amount=0.0,
-                                                   total_amount=0.0,
-                                                   section=self)
-        return pricepoint
+        return response
 

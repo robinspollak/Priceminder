@@ -1,4 +1,10 @@
 .chart{
     display: block;
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: border-top .25s, border-bottom .25s;
+}
+.chart:hover{
+    border-top: 3px solid #4A96AD;
+    border-bottom: 3px solid #4A96AD;
 }

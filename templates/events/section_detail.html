@@ -70,13 +70,13 @@
 {% block content %}
     <div id="chart"></div>
     <div id="more_info">
-      <p>{{ object.name }} tickets at {{ object.event.name }} are listed for {{ object.pricepoints.last.raw_amount }}, but will cost {{ object.pricepoints.last.total_amount }} with all Stubhub fees included.
-        {% if cheapest.first == object.pricepoints.last %}
+      <p>{{ object.name }} tickets at {{ object.event.name }} are listed for {{ object.pricepoints.last.raw_amount }}, but will cost {{ current_cheapest.total_amount }} with all Stubhub fees included.
+        {% if cheapest_ever.total_amount == current_cheapest.total_amount %}
           This is the cheapest these tickets have ever been!
         {% else %}
-          This is ${{ object.pricepoints.last.total_amount|subtract:cheapest.first.total_amount }} more expensive than it was on {{ cheapest.first.datetime|date:"m-d-y"}}.
+          This is ${{ current_cheapest.total_amount|subtract:cheapest_ever.total_amount }} more expensive than it was on {{ cheapest_ever.datetime|date:"m-d-y"}}.
         {% endif %}
-        Click <a href="{{ object.event.stubhub_id|stubhub_uri:cheapest.first.cheapest_id }}">here</a> to buy these tickets now!
+        Click <a href="{{ object.event.stubhub_id|stubhub_uri:current_cheapest.listing_id }}">here</a> to buy these tickets now!
       </p>
     </div>
 {% endblock %}
