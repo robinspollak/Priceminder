@@ -10,6 +10,7 @@ class EventTestCase(TestCase):
     def test___unicode__(self):
         self.assertEquals(self.event.name, self.event.__unicode__())
 
+
 class SectionTestCase(TestCase):
     def setUp(self):
         self.event = Event.objects.create(name='test Event', stubhub_id='9599084')
@@ -47,7 +48,7 @@ class SectionTestCase(TestCase):
         cheapest_ticket = response['listing'][0]
         pricepoint = Pricepoint.objects.create(raw_amount=cheapest_ticket['listingPrice']['amount'],
                                                total_amount=cheapest_ticket['currentPrice']['amount'],
-                                               listing_id=cheapest_ticket['listingId'],
+                                               listing_id=unicode(cheapest_ticket['listingId']),
                                                section=self.section)
         result = self.section.create_pricepoint(response)
         self.assertEquals(pricepoint.raw_amount, result.raw_amount)
