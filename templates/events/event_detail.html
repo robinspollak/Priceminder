@@ -81,6 +81,6 @@
 
 {% block content %}
     {% for section_name in section_names %}
-        <a href="{% url 'section' object.id section_name.1 %}" class="chart" id="chart_{{ section_name.0 }}"></a>
+        <a href="{% url 'events:section' object.id section_name.1 %}" class="chart" id="chart_{{ section_name.0 }}"></a>
     {% endfor %}
 {% endblock %}

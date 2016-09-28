@@ -10,7 +10,7 @@
     <div id="content_box">
         {% for object in object_list %}
             <div id="column" >
-                <a id="event_button" href='{% url 'event' object.id %}'>
+                <a id="event_button" href='{% url 'events:event' object.id %}'>
                     <span id="button_text">
                         {{ object.name }}
                     </span>
