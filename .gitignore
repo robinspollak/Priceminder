@@ -7,3 +7,5 @@ venv/
 secrets.py
 settings.py
 staticfiles/
+.coverage
+cover/

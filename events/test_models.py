@@ -46,15 +46,20 @@ class SectionTestCase(TestCase):
     def test_create_pricepoint_with_tickets(self):
         response = self.section.retrieve_pricepoint()
         cheapest_ticket = response['listing'][0]
-        pricepoint = Pricepoint.objects.create(raw_amount=cheapest_ticket['listingPrice']['amount'],
-                                               total_amount=cheapest_ticket['currentPrice']['amount'],
-                                               listing_id=unicode(cheapest_ticket['listingId']),
-                                               section=self.section)
         result = self.section.create_pricepoint(response)
-        self.assertEquals(pricepoint.raw_amount, result.raw_amount)
-        self.assertEquals(pricepoint.total_amount, result.total_amount)
-        self.assertEquals(pricepoint.listing_id, result.listing_id)
-        self.assertEquals(pricepoint.section, result.section)
+        self.assertEquals(cheapest_ticket['listingPrice']['amount'], result.raw_amount)
+        self.assertEquals(cheapest_ticket['currentPrice']['amount'], result.total_amount)
+        self.assertEquals(unicode(cheapest_ticket['listingId']), result.listing_id)
+        self.assertEquals(self.section, result.section)
+
+    def test_create_pricepoint_with_no_tickets(self):
+        section = Section.objects.create(name='test Section no tickets', stubhub_id='123456', event=self.event)
+        response = self.section.retrieve_pricepoint
+        result = self.section.create_pricepoint(response)
+        self.assertEquals(0.0, result.raw_amount)
+        self.assertEquals(0.0, result.total_amount)
+        self.assertEquals('0', result.listing_id)
+        self.assertEquals(self.section, result.section)
 
     def test_set_pricepoint(self):
         response = self.section.retrieve_pricepoint()

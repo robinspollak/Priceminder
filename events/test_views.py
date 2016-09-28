@@ -111,13 +111,10 @@ class SectionViewTestCase(TestCase):
     def test_price_if_necessary_listing_expired(self):
         response = self.view.object.retrieve_pricepoint()
         pricepoint = self.view.object.create_pricepoint(response)
-        pricepoint.stubhub_id = '123'
+        pricepoint.listing_id = '12345'
         pricepoint.save()
         result = self.view.price_if_necessary()
-        self.assertEquals(pricepoint.raw_amount, result.raw_amount)
-        self.assertEquals(pricepoint.total_amount, result.total_amount)
-        self.assertEquals(pricepoint.listing_id, result.listing_id)
-        self.assertEquals(pricepoint.section, result.section)
+        self.assertNotEqual(pricepoint.listing_id, result.listing_id)
 
     def test_price_if_necessary_unecessary(self):
         response = self.view.object.retrieve_pricepoint()

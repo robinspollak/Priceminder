@@ -38,6 +38,7 @@ class Section(models.Model):
         except:
             pricepoint = Pricepoint.objects.create(raw_amount=0.0,
                                                    total_amount=0.0,
+                                                   listing_id='0',
                                                    section=self)
         return pricepoint
 
