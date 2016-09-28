@@ -12,6 +12,7 @@ class PricepointTestCase(TestCase):
         self.now = datetime.now()
         self.pricepoint = Pricepoint.objects.create(raw_amount=123.45,
                                                     total_amount=234.56,
+                                                    listing_id='123456',
                                                     section = self.section)
 
     def test___unicode__(self):
