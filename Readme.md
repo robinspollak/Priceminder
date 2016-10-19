@@ -10,3 +10,6 @@ A demonstration of how it would work if implemented full-time is available [here
 * Implement Twilio integration to allow users to follow events and be notified when prices drop
 * Create AI to know when prices are likely to go down or back up, then integrate that with Twilio notifications
 
+## Contact Me
+If this project interests you or if you have any questions or ideas feel free to open an issue (or even better a PR) or contact me [here](mailto:robin@pollak.io). You can also learn a bit more about me and check out some thngs I'm interested in [here](robin.pollak.io).
+
